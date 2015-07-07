@@ -7,7 +7,7 @@ var Home = React.createClass({
             <h2 className="text-center">
                 Search by Github username above
             </h2>
-        )
+        );
     }
 
 });
