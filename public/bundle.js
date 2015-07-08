@@ -23546,8 +23546,6 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-
 	var Main = __webpack_require__(197);
 	var Home = __webpack_require__(198);
 	var Profile = __webpack_require__(199);

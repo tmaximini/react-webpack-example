@@ -10,11 +10,11 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel'
             }
-            // ,{
-            //     test: /\.js?$/,
-            //     exclude: /(node_modules|bower_components)/,
-            //     loader: 'eslint'
-            // }
+            ,{
+                test: /\.js?$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'eslint'
+            }
         ]
     }
 };
