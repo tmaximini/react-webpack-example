@@ -8,6 +8,8 @@ var Notes = require('./notes/Notes');
 var ReactFireMixin = require('reactfire');
 var Firebase = require('firebase');
 
+var helpers = require('../utils/helpers');
+
 
 var Profile = React.createClass({
 
@@ -18,9 +20,9 @@ var Profile = React.createClass({
 
     getInitialState: function() {
         return {
-            notes: [ 'my note 1' ],
-            bio: { name: 'thomas' },
-            repos: [ 'react', 'webpack' ]
+            notes: [],
+            bio: {},
+            repos: []
         };
     },
 
@@ -28,7 +30,15 @@ var Profile = React.createClass({
         this.ref = new Firebase('https://react-webpack-test.firebaseio.com');
         var childRef = this.ref.child(this.getParams().username);
         this.bindAsArray(childRef, 'notes');
-        console.log('this.getParams(): ', this.getParams(), childRef);
+
+        helpers.getGithubInfo(this.getParams().username)
+            .then(function(dataObj) {
+                this.setState({
+                    bio: dataObj.bio,
+                    repos: dataObj.repos
+                });
+            }.bind(this));
+
     },
 
     componentWillUnmount: function() {
