@@ -5,10 +5,16 @@ var UserProfile = require('./github/UserProfile');
 var Repos = require('./github/Repos');
 var Notes = require('./notes/Notes');
 
+var ReactFireMixin = require('reactfire');
+var Firebase = require('firebase');
+
 
 var Profile = React.createClass({
 
-    mixins: [Router.State], // needed for querying route params
+    mixins: [
+        Router.State, // needed for querying route params
+        ReactFireMixin
+    ],
 
     getInitialState: function() {
         return {
@@ -16,6 +22,17 @@ var Profile = React.createClass({
             bio: { name: 'thomas' },
             repos: [ 'react', 'webpack' ]
         };
+    },
+
+    componentDidMount: function() {
+        this.ref = new Firebase('https://react-webpack-test.firebaseio.com');
+        var childRef = this.ref.child(this.getParams().username);
+        this.bindAsArray(childRef, 'notes');
+        console.log('this.getParams(): ', this.getParams(), childRef);
+    },
+
+    componentWillUnmount: function() {
+        this.unbind('notes');
     },
 
     render: function() {
