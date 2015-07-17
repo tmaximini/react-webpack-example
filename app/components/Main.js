@@ -1,9 +1,13 @@
-var React = require('react');
-var RouteHandler = require('react-router').RouteHandler;
-var SearchGithub = require('./SearchGithub');
+import React from 'react';
 
-var Main = React.createClass({
-    render: function() {
+import { RouteHandler } from 'react-router';
+
+
+import SearchGithub from './SearchGithub';
+
+class Main extends React.Component {
+    render() {
+        // pass down this.props spread in RouteHandler to child components (received from App.js {...state})
         return (
             <div className="main-container">
               <nav className="navbar navbar-default" role="navigation">
@@ -12,12 +16,13 @@ var Main = React.createClass({
                 </div>
               </nav>
               <div className="container">
-                <RouteHandler />
+
+                <RouteHandler {...this.props}/>
               </div>
             </div>
         );
     }
-});
+}
 
 
-module.exports = Main;
+export default Main;
